@@ -1,14 +1,27 @@
-import { useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 
 export default function Dropdown() {
-  const [open, setIsOpen] = useState(false)
-  return (
-    <div>
-      <button onClick={()=> setIsOpen(!open)}>Show Dropdown</button>
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
 
+  useEffect(() => {
+    function onClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, []);
+
+  return (
+    <div ref={menuRef}>
+      <button onClick={() => setOpen(!open)}>Menu</button>
       {open && (
-        <ul style={{ border: "1px solid #ccc", padding: 20 }}>
+        <ul>
           <li>Profile</li>
           <li>Settings</li>
           <li>Logout</li>
