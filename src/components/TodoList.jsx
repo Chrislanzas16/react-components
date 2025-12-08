@@ -14,9 +14,9 @@ export const ToDoList = () => {
     setInputValue(""); // Clear the input field after adding
   };
 
-  function deleteItem(id) {
+  const deleteItem = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  }
+  };
 
   const toggleComplete = (id) => {
     setTodos(
