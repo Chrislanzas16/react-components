@@ -1,24 +1,28 @@
 import { useState } from "react";
 
 export const ToDoList = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputvalue] = useState("");
   const [todos, setTodos] = useState([]);
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    if (!inputValue.trim()) return; // Prevent adding empty tasks
+    e.preventDefault();
+    if (!inputValue.trim()) return;
     setTodos([
       ...todos,
-      { id: crypto.randomUUID(), text: inputValue, completed: false },
-    ]); // Pass the input value to a function that adds the task
-    setInputValue(""); // Clear the input field after adding
+      {
+        id: crypto.randomUUID(),
+        text: inputValue,
+        completed: false,
+      },
+    ]);
+    setInputvalue("");
   };
 
-  const deleteItem = (id) => {
+  const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const toggleComplete = (id) => {
+  const handleCompleted = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -28,22 +32,21 @@ export const ToDoList = () => {
 
   return (
     <div>
-      <h2>ToDo List</h2>
+      <h2>ToDo list</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Add new item..."
+          placeholder="Add item here..."
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => setInputvalue(e.target.value)}
         />
         <button type="submit">Add</button>
       </form>
-
       <ul>
         {todos.map((item) => (
           <li key={item.id}>
             <span
-              onClick={() => toggleComplete(item.id)}
+              onClick={() => handleCompleted(item.id)}
               style={{
                 cursor: "pointer",
                 textDecoration: item.completed ? "line-through" : "none",
@@ -51,7 +54,7 @@ export const ToDoList = () => {
             >
               {item.text}
             </span>
-            <button onClick={() => deleteItem(item.id)}>Delete</button>
+            <button onClick={() => handleDelete(item.id)}>Delete</button>
           </li>
         ))}
       </ul>
