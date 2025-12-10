@@ -4,6 +4,7 @@ import SearchFilter from "./components/SearchFilter";
 import Tabs from "./components/Tabs";
 import { ToDoList } from "./components/TodoList";
 import { ProductCard } from "./components/ProductCard";
+import { Modal } from "./components/Modal";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div>
+      <Modal />
       {products.map((item) => (
         <ProductCard
           key={item.id}
