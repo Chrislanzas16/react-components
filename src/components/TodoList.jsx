@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export const ToDoList = () => {
-  const [inputValue, setInputvalue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
   const handleSubmit = (e) => {
@@ -15,14 +15,13 @@ export const ToDoList = () => {
         completed: false,
       },
     ]);
-    setInputvalue("");
+    setInputValue("");
   };
 
   const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
-
-  const handleCompleted = (id) => {
+  const handleComplete = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -32,13 +31,13 @@ export const ToDoList = () => {
 
   return (
     <div>
-      <h2>ToDo list</h2>
+      <h2>ToDo List</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Add item here..."
           value={inputValue}
-          onChange={(e) => setInputvalue(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <button type="submit">Add</button>
       </form>
@@ -46,7 +45,7 @@ export const ToDoList = () => {
         {todos.map((item) => (
           <li key={item.id}>
             <span
-              onClick={() => handleCompleted(item.id)}
+              onClick={() => handleComplete(item.id)}
               style={{
                 cursor: "pointer",
                 textDecoration: item.completed ? "line-through" : "none",
